@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 
@@ -30,19 +31,58 @@ interface ProjectCardProps {
   className?: string
 }
 
+// Animation variants for project cards
+const cardVariants = {
+  hidden: {
+    opacity: 0,
+    y: 20,
+    scale: 0.95
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.4,
+      ease: "easeOut"
+    }
+  }
+}
+
+const cardHoverVariants = {
+  hover: {
+    y: -8,
+    scale: 1.02,
+    transition: {
+      duration: 0.2,
+      ease: "easeOut"
+    }
+  }
+}
+
+const tagVariants = {
+  rest: { scale: 1 },
+  hover: { 
+    scale: 1.05,
+    transition: { duration: 0.15, ease: "easeOut" }
+  }
+}
+
 /**
  * ProjectCard Component
  * 
  * A reusable card component for displaying project information.
  * Built using shadcn card components for consistency with the design system.
+ * Now enhanced with framer-motion animations for premium UX.
  * 
  * Features:
  * - Responsive design that works on all screen sizes
  * - Status indicators with appropriate colors
  * - Tag system for categorizing projects
- * - Hover effects for better interactivity
+ * - Smooth hover animations and micro-interactions
  * - Accessible button states
  * - Uses portfolio color scheme
+ * - Respects reduced motion preferences
  * 
  * @param project - The project data to display
  * @param className - Optional additional CSS classes
@@ -85,58 +125,81 @@ export const ProjectCard = ({ project, className = '' }: ProjectCardProps) => {
   const buttonConfig = getButtonConfig(project.status)
 
   return (
-    <Card className={`hover:shadow-lg transition-all duration-200 group ${className}`}>
-      {/* Card Header with Title and Status */}
-      <CardHeader className="pb-4">
-        <div className="flex items-center justify-between">
-          <CardTitle className="text-xl group-hover:text-[var(--portfolio-blue)] transition-colors">
-            {project.title}
-          </CardTitle>
-          
-          {/* Status Badge */}
-          <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusStyling(project.status)}`}>
-            {project.status}
-          </span>
-        </div>
-        
-        {/* Project Description */}
-        <CardDescription className="leading-relaxed">
-          {project.description}
-        </CardDescription>
-      </CardHeader>
+    <motion.div
+      variants={cardVariants}
+      whileHover="hover"
+      className={className}
+    >
+      <motion.div variants={cardHoverVariants}>
+        <Card className="hover:shadow-lg transition-shadow duration-200 group h-full">
+          {/* Card Header with Title and Status */}
+          <CardHeader className="pb-4">
+            <div className="flex items-center justify-between">
+              <CardTitle className="text-xl group-hover:text-[var(--portfolio-blue)] transition-colors">
+                {project.title}
+              </CardTitle>
+              
+              {/* Status Badge */}
+              <motion.span 
+                className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusStyling(project.status)}`}
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.15 }}
+              >
+                {project.status}
+              </motion.span>
+            </div>
+            
+            {/* Project Description */}
+            <CardDescription className="leading-relaxed">
+              {project.description}
+            </CardDescription>
+          </CardHeader>
 
-      {/* Card Content with Tags */}
-      <CardContent className="pb-4">
-        <div className="flex flex-wrap gap-2">
-          {project.tags.map((tag) => (
-            <span
-              key={tag}
-              className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium hover:bg-primary/20 transition-colors"
+          {/* Card Content with Tags */}
+          <CardContent className="pb-4">
+            <div className="flex flex-wrap gap-2">
+              {project.tags.map((tag, index) => (
+                <motion.span
+                  key={tag}
+                  className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium hover:bg-primary/20 transition-colors cursor-default"
+                  variants={tagVariants}
+                  initial="rest"
+                  whileHover="hover"
+                  custom={index}
+                >
+                  {tag}
+                </motion.span>
+              ))}
+            </div>
+          </CardContent>
+
+          {/* Card Footer with Action Button */}
+          <CardFooter>
+            <motion.div 
+              className="w-full"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ duration: 0.15 }}
             >
-              {tag}
-            </span>
-          ))}
-        </div>
-      </CardContent>
-
-      {/* Card Footer with Action Button */}
-      <CardFooter>
-        <Button 
-          variant="outline" 
-          className="w-full hover:bg-[var(--portfolio-honey)] hover:text-[#333333] hover:border-[var(--portfolio-honey)] transition-all duration-200"
-          disabled={buttonConfig.disabled}
-          asChild={!buttonConfig.disabled}
-        >
-          {buttonConfig.disabled ? (
-            <span>{buttonConfig.text}</span>
-          ) : (
-            <Link href={project.detailUrl || `/projects/${project.id}`}>
-              {buttonConfig.text}
-            </Link>
-          )}
-        </Button>
-      </CardFooter>
-    </Card>
+              <Button 
+                variant="outline" 
+                className="w-full hover:bg-[var(--portfolio-honey)] hover:text-[#333333] hover:border-[var(--portfolio-honey)] transition-all duration-200"
+                disabled={buttonConfig.disabled}
+                asChild={!buttonConfig.disabled}
+              >
+                {buttonConfig.disabled ? (
+                  <span>{buttonConfig.text}</span>
+                ) : (
+                  <Link href={project.detailUrl || `/projects/${project.id}`}>
+                    {buttonConfig.text}
+                  </Link>
+                )}
+              </Button>
+            </motion.div>
+          </CardFooter>
+        </Card>
+      </motion.div>
+    </motion.div>
   )
 }
 
@@ -145,6 +208,7 @@ export const ProjectCard = ({ project, className = '' }: ProjectCardProps) => {
  * 
  * A container component for displaying multiple project cards in a responsive grid.
  * This separates the grid layout logic from individual card rendering.
+ * Enhanced with staggered entrance animations for visual appeal.
  * 
  * @param projects - Array of project data to display
  * @param className - Optional additional CSS classes for the grid
@@ -154,13 +218,28 @@ interface ProjectGridProps {
   className?: string
 }
 
+const gridVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2
+    }
+  }
+}
+
 export const ProjectGrid = ({ projects, className = '' }: ProjectGridProps) => {
   return (
-    <div className={`grid gap-6 md:grid-cols-2 lg:grid-cols-3 ${className}`}>
+    <motion.div 
+      className={`grid gap-6 md:grid-cols-2 lg:grid-cols-3 ${className}`}
+      variants={gridVariants}
+      initial="hidden"
+      animate="visible"
+    >
       {projects.map((project) => (
         <ProjectCard key={project.id} project={project} />
       ))}
-    </div>
+    </motion.div>
   )
 }
 

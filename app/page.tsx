@@ -10,7 +10,7 @@ export default function Home() {
           <div className="text-center mb-20">
             <div className="mb-8">
               <h1 className="text-6xl md:text-7xl font-bold text-foreground mb-6 tracking-tight">
-                Hi, I'm{" "}
+                Hi, I&apos;m{" "}
                 <span className="bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
                   Ethan
                 </span>

@@ -1,6 +1,50 @@
+'use client'
+
 import Link from "next/link"
+import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ProjectGrid, type Project } from "@/components/project-card"
+
+// Animation variants for reusability and consistency
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2
+    }
+  }
+}
+
+const fadeInUpVariants = {
+  hidden: {
+    opacity: 0,
+    y: 20
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.4,
+      ease: "easeOut" // Custom easing for premium feel
+    }
+  }
+}
+
+const scaleInVariants = {
+  hidden: {
+    opacity: 0,
+    scale: 0.95
+  },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.3,
+      ease: "easeOut"
+    }
+  }
+}
 
 export default function Projects() {
   // Project data - in a real app, this would come from a database or API
@@ -55,46 +99,81 @@ export default function Projects() {
       <div className="container mx-auto px-6 py-16">
         <div className="max-w-7xl mx-auto">
           
-          {/* Header Section */}
-          <div className="text-center mb-16">
+          {/* Header Section with staggered animations */}
+          <motion.div 
+            className="text-center mb-16"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
             {/* Back to Home Button */}
-            <Button variant="ghost" asChild className="mb-8 hover:text-[var(--portfolio-blue)]">
-              <Link href="/" className="flex items-center gap-2">
-                ← Back to Home
-              </Link>
-            </Button>
+            <motion.div variants={fadeInUpVariants}>
+              <Button variant="ghost" asChild className="mb-8 hover:text-[var(--portfolio-blue)]">
+                <Link href="/" className="flex items-center gap-2">
+                  ← Back to Home
+                </Link>
+              </Button>
+            </motion.div>
             
             {/* Page Title */}
-            <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6 tracking-tight">
+            <motion.h1 
+              className="text-5xl md:text-6xl font-bold text-foreground mb-6 tracking-tight"
+              variants={fadeInUpVariants}
+            >
               My{" "}
               <span className="bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
                 Projects
               </span>
-            </h1>
+            </motion.h1>
             
             {/* Decorative Line */}
-            <div className="w-24 h-1 bg-gradient-to-r from-primary to-primary/70 mx-auto rounded-full mb-6"></div>
+            <motion.div 
+              className="w-24 h-1 bg-gradient-to-r from-primary to-primary/70 mx-auto rounded-full mb-6"
+              variants={{
+                hidden: { width: 0, opacity: 0 },
+                visible: { 
+                  width: 96, // 24 * 4 (for w-24)
+                  opacity: 1,
+                  transition: { duration: 0.6, ease: "easeOut" }
+                }
+              }}
+            />
             
             {/* Page Description */}
-            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            <motion.p 
+              className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed"
+              variants={fadeInUpVariants}
+            >
               Exploring the intersection of data, technology, psychology, and education through meaningful projects that solve real-world problems
-            </p>
-          </div>
+            </motion.p>
+          </motion.div>
 
-          {/* Projects Grid using our new ProjectGrid component */}
-          <div className="mb-16">
+          {/* Projects Grid with scroll-triggered animation */}
+          <motion.div 
+            className="mb-16"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={scaleInVariants}
+          >
             <ProjectGrid projects={projects} />
-          </div>
+          </motion.div>
 
           {/* Call to Action Section */}
-          <div className="text-center">
+          <motion.div 
+            className="text-center"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            variants={scaleInVariants}
+          >
             <div className="bg-card border border-border rounded-2xl p-8 md:p-12 shadow-sm max-w-4xl mx-auto">
               <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-4">
                 Interested in collaborating?
               </h2>
               <p className="text-muted-foreground mb-6 max-w-2xl mx-auto leading-relaxed">
-                I'm always excited to work on projects that sit at the intersection of my interests. 
-                Let's build something amazing together that makes a real difference in how people learn and grow.
+                I&apos;m always excited to work on projects that sit at the intersection of my interests. 
+                Let&apos;s build something amazing together that makes a real difference in how people learn and grow.
               </p>
               <Button 
                 size="lg" 
@@ -107,7 +186,7 @@ export default function Projects() {
                 Get In Touch
               </Button>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>
