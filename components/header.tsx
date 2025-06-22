@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
+import { ThemeToggle } from '@/components/theme-toggle'
 
 /**
  * Header Component - Portfolio Navigation
@@ -52,7 +53,7 @@ export const Header = () => {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-8">
+        <nav className="hidden md:flex items-center space-x-6">
           {navigation.map((item) => (
             <Link
               key={item.name}
@@ -62,6 +63,9 @@ export const Header = () => {
               {item.name}
             </Link>
           ))}
+          
+          {/* Theme Toggle */}
+          <ThemeToggle />
           
           {/* CTA Button - properly integrated with design system */}
           <Button 
@@ -76,28 +80,34 @@ export const Header = () => {
           </Button>
         </nav>
 
-        {/* Mobile menu button */}
-        <button
-          type="button"
-          className="md:hidden p-2 text-foreground hover:text-[var(--portfolio-blue)] transition-colors"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-expanded={mobileMenuOpen}
-          aria-label="Toggle navigation"
-        >
-          <svg 
-            className="h-6 w-6" 
-            fill="none" 
-            viewBox="0 0 24 24" 
-            strokeWidth="1.5" 
-            stroke="currentColor"
+        {/* Mobile controls */}
+        <div className="md:hidden flex items-center space-x-2">
+          {/* Theme Toggle */}
+          <ThemeToggle />
+          
+          {/* Mobile menu button */}
+          <button
+            type="button"
+            className="p-2 text-foreground hover:text-[var(--portfolio-blue)] transition-colors"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-expanded={mobileMenuOpen}
+            aria-label="Toggle navigation"
           >
-            {mobileMenuOpen ? (
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-            )}
-          </svg>
-        </button>
+            <svg 
+              className="h-6 w-6" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              strokeWidth="1.5" 
+              stroke="currentColor"
+            >
+              {mobileMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              )}
+            </svg>
+          </button>
+        </div>
       </div>
 
       {/* Mobile Navigation - smooth animation with CSS */}
