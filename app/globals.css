@@ -41,6 +41,8 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --color-portfolio-honey: var(--portfolio-honey);
+  --color-portfolio-blue: var(--portfolio-blue);
 }
 
 :root {
@@ -76,6 +78,10 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  
+  /* Portfolio Brand Colors */
+  --portfolio-honey: #FFC857;
+  --portfolio-blue: #3A86FF;
 }
 
 .dark {
@@ -110,6 +116,10 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+  
+  /* Portfolio Brand Colors - same in dark mode */
+  --portfolio-honey: #FFC857;
+  --portfolio-blue: #3A86FF;
 }
 
 @layer base {
@@ -118,5 +128,30 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* Mobile menu animation - performant transform-based */
+@layer components {
+  .mobile-menu-enter {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  
+  .mobile-menu-enter-active {
+    transform: translateY(0);
+    opacity: 1;
+    transition: transform 200ms ease-out, opacity 200ms ease-out;
+  }
+  
+  .mobile-menu-exit {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  
+  .mobile-menu-exit-active {
+    transform: translateY(-10px);
+    opacity: 0;
+    transition: transform 200ms ease-in, opacity 200ms ease-in;
   }
 }

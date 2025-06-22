@@ -14,8 +14,7 @@ Frontend: Next.js, tailwind css, shadcn, framer motion
 ## General Rules
 
 - Use kebab case for file names
-- Since I'm new to coding, work with me as a product manager and engineer to scope down requests so that each action is a defined, smaller unit of action and we can build the app together
-- I want to build products with best practice mechanics. I want to build products with you feature by feature, but rather than you agentically building out everything, I want you to figure out a way to integrate me into each step so that I learn the skill of programming with best practices. This should include me brainstorming with you to figure out how to evaluate logic, program design, system design, etc. What I will do is provide you with features and then we will break that feature down and work on it to completion in micro-steps, and then once complete, move on to the next feature I provide.
+
 
 ### Comment Rules
 
