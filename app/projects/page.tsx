@@ -1,7 +1,7 @@
 'use client'
 
 import Link from "next/link"
-import { motion } from "framer-motion"
+import { motion, cubicBezier } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ProjectGrid, type Project } from "@/components/project-card"
 
@@ -26,7 +26,7 @@ const fadeInUpVariants = {
     y: 0,
     transition: {
       duration: 0.4,
-      ease: "easeOut" // Custom easing for premium feel
+      ease: cubicBezier(0.25, 0.1, 0.25, 1) // Custom easing for premium feel
     }
   }
 }
@@ -41,7 +41,7 @@ const scaleInVariants = {
     scale: 1,
     transition: {
       duration: 0.3,
-      ease: "easeOut"
+      ease: cubicBezier(0.25, 0.1, 0.25, 1)
     }
   }
 }
@@ -134,7 +134,7 @@ export default function Projects() {
                 visible: { 
                   width: 96, // 24 * 4 (for w-24)
                   opacity: 1,
-                  transition: { duration: 0.6, ease: "easeOut" }
+                  transition: { duration: 0.6, ease: cubicBezier(0.25, 0.1, 0.25, 1) }
                 }
               }}
             />

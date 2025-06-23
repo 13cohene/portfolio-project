@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { motion, cubicBezier } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 
@@ -44,7 +44,7 @@ const cardVariants = {
     scale: 1,
     transition: {
       duration: 0.4,
-      ease: "easeOut"
+      ease: cubicBezier(0.25, 0.1, 0.25, 1)
     }
   }
 }
@@ -55,7 +55,7 @@ const cardHoverVariants = {
     scale: 1.02,
     transition: {
       duration: 0.2,
-      ease: "easeOut"
+      ease: cubicBezier(0.25, 0.1, 0.25, 1)
     }
   }
 }
@@ -64,7 +64,7 @@ const tagVariants = {
   rest: { scale: 1 },
   hover: { 
     scale: 1.05,
-    transition: { duration: 0.15, ease: "easeOut" }
+    transition: { duration: 0.15, ease: cubicBezier(0.25, 0.1, 0.25, 1) }
   }
 }
 
