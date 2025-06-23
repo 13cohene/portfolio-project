@@ -45,33 +45,45 @@ export default function Home() {
               </p>
               
               <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                <Link 
+                  href="/projects?filter=data"
+                  className="text-center group hover:scale-105 transition-transform duration-200 cursor-pointer"
+                >
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:bg-[var(--portfolio-honey)]/20 group-hover:shadow-lg transition-all duration-200">
                     <span className="text-2xl">📊</span>
                   </div>
-                  <p className="text-sm font-medium text-foreground">Data</p>
-                </div>
+                  <p className="text-sm font-medium text-foreground group-hover:text-[var(--portfolio-blue)] transition-colors">Data</p>
+                </Link>
                 
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                <Link 
+                  href="/projects?filter=technology"
+                  className="text-center group hover:scale-105 transition-transform duration-200 cursor-pointer"
+                >
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:bg-[var(--portfolio-honey)]/20 group-hover:shadow-lg transition-all duration-200">
                     <span className="text-2xl">💻</span>
                   </div>
-                  <p className="text-sm font-medium text-foreground">Technology</p>
-                </div>
+                  <p className="text-sm font-medium text-foreground group-hover:text-[var(--portfolio-blue)] transition-colors">Technology</p>
+                </Link>
                 
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                <Link 
+                  href="/projects?filter=psychology"
+                  className="text-center group hover:scale-105 transition-transform duration-200 cursor-pointer"
+                >
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:bg-[var(--portfolio-honey)]/20 group-hover:shadow-lg transition-all duration-200">
                     <span className="text-2xl">🧠</span>
                   </div>
-                  <p className="text-sm font-medium text-foreground">Psychology</p>
-                </div>
+                  <p className="text-sm font-medium text-foreground group-hover:text-[var(--portfolio-blue)] transition-colors">Psychology</p>
+                </Link>
                 
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                <Link 
+                  href="/projects?filter=education"
+                  className="text-center group hover:scale-105 transition-transform duration-200 cursor-pointer"
+                >
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:bg-[var(--portfolio-honey)]/20 group-hover:shadow-lg transition-all duration-200">
                     <span className="text-2xl">🎓</span>
                   </div>
-                  <p className="text-sm font-medium text-foreground">Education</p>
-                </div>
+                  <p className="text-sm font-medium text-foreground group-hover:text-[var(--portfolio-blue)] transition-colors">Education</p>
+                </Link>
               </div>
             </div>
           </div>

@@ -22,7 +22,7 @@ You are a senior engineer with deep experience building production-grade AI agen
 •Simulate deep discussion and argument over this approach with 4 different 10x engineers to evaluate tradeoffs of the plan. 
 •Have each discussion evaluate correctness, tradeoffs, and recommendations for improvement. Think incredibly hard for each discussion. 
 •Improve planned approach with each discussion, until there is an agreed upon approach by all four eningeers.
-•Use agreed upon plan to complete the following steps.
+•Pause and present your proposed plan to me. Answer any questions or make any updates from me. Wait until I give plan approval to move onto step 3
 
 3.Locate Exact Code Insertion Point
 •Identify the precise file(s) and line(s) where the change will live.
